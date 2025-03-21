@@ -3,8 +3,137 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  position: relative;
+}
+
+.mensagem-erro {
+  color: red;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.botao-grande {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  margin: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.botao-finalizar {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.botoes-container {
+  display: flex;
+  gap: 10px;
+}
+
+.distribuir-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 2px solid #007bff;
+  border-radius: 50px;
+  background-color: #f1f1f1;
+}
+
+.label-jogadores {
+  font-size: 16px;
+}
+
+.input-jogadores {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 button {
   margin: 5px;
+}
+
+/* Estilo para as cartas */
+.carta {
+  width: 80px; /* Diminui a largura das cartas */
+  height: auto; /* Mantém a proporção da altura */
+  margin: 5px; /* Espaçamento entre as cartas */
+}
+
+/* Estilo para os botões */
+.botao {
+  background-color: #007bff; /* Cor de fundo azul */
+  color: white; /* Cor do texto branco */
+  border: none; /* Remove a borda padrão */
+  padding: 10px 20px; /* Espaçamento interno */
+  text-align: center; /* Alinhamento do texto */
+  text-decoration: none; /* Remove sublinhado */
+  display: inline-block; /* Exibição em linha */
+  font-size: 16px; /* Tamanho da fonte */
+  margin: 4px 2px; /* Margem */
+  cursor: pointer; /* Cursor de ponteiro */
+  border-radius: 5px; /* Bordas arredondadas */
+}
+
+  .botao:hover {
+    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+  }
+
+/* Estilo para a lista de jogadores */
+.jogadores-lista {
+  list-style-type: none;
+  padding: 0;
+}
+
+  .jogadores-lista li {
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Borda do card */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #f9f9f9; /* Cor de fundo do card */
+  }
+
+  .jogadores-lista img {
+    width: 80px; /* Diminui a largura das cartas */
+    height: auto; /* Mantém a proporção da altura */
+    margin: 5px; /* Espaçamento entre as cartas */
+  }
+
+/* Estilo para "Suas Cartas" */
+.suas-cartas {
+  font-weight: bold;
+  font-size: 20px;
+  color: #ff4500; /* Cor diferente */
+}
+
+/* Estilo para a comparação */
+.comparacao-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  margin-bottom: 10px;
 }

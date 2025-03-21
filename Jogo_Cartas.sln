@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "jogo_cartas.client", "jogo_cartas.client\jogo_cartas.client.esproj", "{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jogo_Cartas.Server", "Jogo_Cartas.Server\Jogo_Cartas.Server.csproj", "{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jogo_Cartas.Testes", "Jogo_Cartas.Testes\Jogo_Cartas.Testes.csproj", "{02F87054-93C6-44F0-81CB-5C5D1BD87B2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F87054-93C6-44F0-81CB-5C5D1BD87B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F87054-93C6-44F0-81CB-5C5D1BD87B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F87054-93C6-44F0-81CB-5C5D1BD87B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F87054-93C6-44F0-81CB-5C5D1BD87B2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

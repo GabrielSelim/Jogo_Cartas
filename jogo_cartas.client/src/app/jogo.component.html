@@ -1,25 +1,29 @@
-<div>
-  <button (click)="criarBaralho()">Criar Baralho</button>
-  <button (click)="embaralharCartas()" [disabled]="!deckId">Embaralhar Cartas</button>
-  <div>
-    <label for="numeroDeJogadores">Número de Jogadores:</label>
-    <input type="number" id="numeroDeJogadores" [(ngModel)]="numeroDeJogadores" min="2" max="10">
+<div class="jogo-container">
+  <div *ngIf="mensagemErro" class="mensagem-erro">{{ mensagemErro }}</div>
+  <button *ngIf="!deckId" class="botao-grande" (click)="criarBaralho()">JOGAR</button>
+  <button *ngIf="deckId" class="botao-finalizar" (click)="finalizarJogo()">Finalizar Jogo</button>
+
+  <div *ngIf="deckId" class="botoes-container">
+    <button class="botao" (click)="embaralharCartas()" [disabled]="!deckId">Embaralhar Cartas</button>
+    <div *ngIf="baralhoEmbaralhado" class="distribuir-container">
+      <label for="numeroDeJogadores" class="label-jogadores">Número de Jogadores:</label>
+      <input type="number" id="numeroDeJogadores" [(ngModel)]="numeroDeJogadores" min="2" max="10" class="input-jogadores" (input)="validarNumeroDeJogadores()" (keydown)="validarTecla($event)">
+      <button class="botao" (click)="distribuirCartas()" [disabled]="!numeroDeJogadoresValido">Distribuir Cartas</button>
+    </div>
+    <button *ngIf="jogadores.length > 0" class="botao" (click)="compararCartas()">Comparar Cartas</button>
   </div>
-  <button (click)="distribuirCartas()" [disabled]="!deckId || !baralhoEmbaralhado">Distribuir Cartas</button>
-  <button (click)="compararCartas()" [disabled]="jogadores.length === 0">Comparar Cartas</button>
-  <button (click)="finalizarJogo()" [disabled]="!deckId">Finalizar Jogo</button>
 </div>
 
 <div *ngIf="jogadores.length > 0">
   <h3>Jogadores</h3>
-  <ul>
-    <li *ngFor="let jogador of jogadores; let i = index">
-      <h4>{{ jogador.nome }}</h4>
+  <ul class="jogadores-lista">
+    <li *ngFor="let jogador of jogadores; let i = index" class="jogador-card">
+      <h4 [ngClass]="{'suas-cartas': i === 0}">{{ i === 0 ? 'Suas Cartas' : jogador.nome }}</h4>
       <div *ngIf="i === 0">
-        <img *ngFor="let carta of jogador.cartas" [src]="carta.image" [alt]="carta.code">
+        <img *ngFor="let carta of jogador.cartas" [src]="carta.image" [alt]="carta.code" class="carta">
       </div>
       <div *ngIf="i !== 0">
-        <img *ngFor="let carta of jogador.cartas" [src]="backImage" alt="Carta Virada">
+        <img *ngFor="let carta of jogador.cartas" [src]="backImage" alt="Carta Virada" class="carta">
       </div>
     </li>
   </ul>
@@ -27,8 +31,9 @@
 
 <div *ngIf="resultadoComparacao">
   <h3>Resultado da Comparação: {{ resultadoComparacao }}</h3>
-  <div *ngFor="let vencedor of vencedores">
-    <h4>{{ vencedor.nome }}</h4>
-    <img [src]="vencedor.carta.image" [alt]="vencedor.carta.code">
+  <div *ngFor="let vencedor of vencedores" class="comparacao-container">
+    <h4 [ngClass]="{'suas-cartas': vencedor.nome === 'Jogador 1'}">{{ vencedor.nome === 'Jogador 1' ? 'Suas Cartas' : vencedor.nome }}</h4>
+    <img [src]="vencedor.carta.image" [alt]="vencedor.carta.code" class="carta">
   </div>
 </div>
+
