@@ -1,0 +1,10 @@
+.jogo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+button {
+  margin: 5px;
+}

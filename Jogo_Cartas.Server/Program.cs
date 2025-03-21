@@ -10,6 +10,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("https://localhost:64575") // URL do frontend Angular
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(8080);
@@ -32,6 +43,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Usar CORS antes do middleware de autorização
+app.UseCors();
 
 app.UseAuthorization();
 
