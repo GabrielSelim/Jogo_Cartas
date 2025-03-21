@@ -16,7 +16,7 @@ namespace Jogo_Cartas.Server.Controllers
             _jogoServico = jogoServico;
         }
 
-        [HttpPost("criar-baralho")]
+        [HttpGet("criar-baralho")]
         public async Task<ActionResult<Baralho>> CriarBaralho()
         {
             try

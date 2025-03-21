@@ -1,3 +1,6 @@
+using Jogo_Cartas.Server.Services.Interfaces;
+using Jogo_Cartas.Server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +15,9 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenAnyIP(8080);
     options.ListenAnyIP(8081);
 });
+
+builder.Services.AddHttpClient<IClienteAPIService, ClienteApiService>();
+builder.Services.AddScoped<IJogoService, JogoServico>();
 
 var app = builder.Build();
 
