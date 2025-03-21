@@ -263,12 +263,9 @@ namespace Jogo_Cartas.Testes
             var result = await _controller.CompararCartas(jogadores);
 
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var returnValue = badRequestResult.Value;
+            var returnValue = badRequestResult.Value as ApiErrorResponse;
             Assert.NotNull(returnValue);
-
-            // Usar deserialização dinâmica para acessar a propriedade mensagem
-            var mensagem = returnValue.GetType().GetProperty("mensagem").GetValue(returnValue, null) as string;
-            Assert.Equal("A lista de jogadores não pode ser nula ou vazia.", mensagem);
+            Assert.Equal("A lista de jogadores não pode ser nula ou vazia.", returnValue.Mensagem);
         }
 
         [Fact(DisplayName = "CompararCartas deve retornar BadRequest se algum jogador tiver menos de 5 cartas")]
@@ -285,12 +282,9 @@ namespace Jogo_Cartas.Testes
             var result = await _controller.CompararCartas(jogadores);
 
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var returnValue = badRequestResult.Value;
+            var returnValue = badRequestResult.Value as ApiErrorResponse;
             Assert.NotNull(returnValue);
-
-            // Usar deserialização dinâmica para acessar a propriedade mensagem
-            var mensagem = returnValue.GetType().GetProperty("mensagem").GetValue(returnValue, null) as string;
-            Assert.Equal("O jogador Jogador 1 tem menos de 5 cartas.", mensagem);
+            Assert.Equal("O jogador Jogador 1 tem menos de 5 cartas.", returnValue.Mensagem);
         }
 
         [Fact(DisplayName = "CompararCartas deve retornar BadRequest se algum campo da carta for inválido")]
@@ -307,12 +301,9 @@ namespace Jogo_Cartas.Testes
             var result = await _controller.CompararCartas(jogadores);
 
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var returnValue = badRequestResult.Value;
+            var returnValue = badRequestResult.Value as ApiErrorResponse;
             Assert.NotNull(returnValue);
-
-            // Usar deserialização dinâmica para acessar a propriedade mensagem
-            var mensagem = returnValue.GetType().GetProperty("mensagem").GetValue(returnValue, null) as string;
-            Assert.Equal("Carta inválida: todos os campos devem ser preenchidos.", mensagem);
+            Assert.Equal("Carta inválida: todos os campos devem ser preenchidos.", returnValue.Mensagem);
         }
     }
 }

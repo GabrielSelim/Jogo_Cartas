@@ -26,7 +26,7 @@ namespace Jogo_Cartas.Server.Controllers
             }
             catch (ApiException ex)
             {
-                return BadRequest(new { mensagem = ex.Message });
+                return BadRequest(new ApiErrorResponse { Mensagem = ex.Message });
             }
         }
 
@@ -54,7 +54,7 @@ namespace Jogo_Cartas.Server.Controllers
             }
             catch (ApiException ex)
             {
-                return BadRequest(new { mensagem = ex.Message });
+                return BadRequest(new ApiErrorResponse { Mensagem = ex.Message });
             }
         }
 
@@ -69,7 +69,7 @@ namespace Jogo_Cartas.Server.Controllers
             }
             catch (ApiException ex)
             {
-                return BadRequest(new { mensagem = ex.Message });
+                return BadRequest(new ApiErrorResponse { Mensagem = ex.Message });
             }
         }
 
@@ -83,7 +83,7 @@ namespace Jogo_Cartas.Server.Controllers
             }
             catch (ApiException ex)
             {
-                return BadRequest(new { mensagem = ex.Message });
+                return BadRequest(new ApiErrorResponse { Mensagem = ex.Message });
             }
         }
     }

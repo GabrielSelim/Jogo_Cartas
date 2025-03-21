@@ -31,31 +31,8 @@ namespace Jogo_Cartas.Server.Services
             try
             {
                 var baralho = await _clienteApi.ObterBaralhoAsync(deckId);
-
-                if (baralho == null)
-                {
-                    throw new ApiException($"Baralho com ID {deckId} não encontrado.");
-                }
-
-                if (!baralho.Embaralhado)
-                {
-                    throw new ApiException("O baralho precisa ser embaralhado antes de distribuir as cartas.");
-                }
-
-                if (numeroDeJogadores < 2)
-                {
-                    throw new ApiException("O número de jogadores deve ser pelo menos 2.");
-                }
-
-                if (numeroDeJogadores > MaxJogadores)
-                {
-                    throw new ApiException($"O número máximo de jogadores é {MaxJogadores}.");
-                }
-
-                if (baralho.CartasRestantes != 52)
-                {
-                    throw new ApiException("As cartas só podem ser distribuídas novamente se o baralho for embaralhado.");
-                }
+                ValidarBaralho(baralho, deckId);
+                ValidarNumeroDeJogadores(numeroDeJogadores);
 
                 var jogadores = new List<Jogador>();
                 for (int i = 0; i < numeroDeJogadores; i++)
@@ -69,6 +46,37 @@ namespace Jogo_Cartas.Server.Services
             catch (System.Exception ex) when (ex is HttpRequestException || ex is TaskCanceledException)
             {
                 throw new ApiException("A API está fora do ar. Tente novamente mais tarde.");
+            }
+        }
+
+        private void ValidarBaralho(Baralho baralho, string deckId)
+        {
+            if (baralho == null)
+            {
+                throw new ApiException($"Baralho com ID {deckId} não encontrado.");
+            }
+
+            if (!baralho.Embaralhado)
+            {
+                throw new ApiException("O baralho precisa ser embaralhado antes de distribuir as cartas.");
+            }
+
+            if (baralho.CartasRestantes != 52)
+            {
+                throw new ApiException("As cartas só podem ser distribuídas novamente se o baralho for embaralhado.");
+            }
+        }
+
+        private void ValidarNumeroDeJogadores(int numeroDeJogadores)
+        {
+            if (numeroDeJogadores < 2)
+            {
+                throw new ApiException("O número de jogadores deve ser pelo menos 2.");
+            }
+
+            if (numeroDeJogadores > MaxJogadores)
+            {
+                throw new ApiException($"O número máximo de jogadores é {MaxJogadores}.");
             }
         }
 
@@ -103,21 +111,13 @@ namespace Jogo_Cartas.Server.Services
                 throw new ApiException("A lista de jogadores não pode ser nula ou vazia.");
             }
 
-            var valores = new Dictionary<string, int>
-            {
-                { "2", 2 }, { "3", 3 }, { "4", 4 }, { "5", 5 }, { "6", 6 }, { "7", 7 }, { "8", 8 }, { "9", 9 }, { "10", 10 },
-                { "JACK", 11 }, { "QUEEN", 12 }, { "KING", 13 }, { "ACE", 14 }
-            };
-
+            var valores = ObterValoresDasCartas();
             var vencedores = new List<(Jogador jogador, Carta carta)>();
             int maiorValor = 0;
 
             foreach (var jogador in jogadores)
             {
-                if (jogador.Cartas.Count < 5)
-                {
-                    throw new ApiException($"O jogador {jogador.Nome} tem menos de 5 cartas.");
-                }
+                ValidarCartasDoJogador(jogador);
 
                 var melhorCarta = jogador.Cartas
                     .Where(carta => ValidarCarta(carta, valores))
@@ -149,6 +149,23 @@ namespace Jogo_Cartas.Server.Services
             string resultado = vencedores.Count > 1 ? "Empate" : "Vitória";
 
             return (vencedores, resultado);
+        }
+
+        private void ValidarCartasDoJogador(Jogador jogador)
+        {
+            if (jogador.Cartas.Count < 5)
+            {
+                throw new ApiException($"O jogador {jogador.Nome} tem menos de 5 cartas.");
+            }
+        }
+
+        private Dictionary<string, int> ObterValoresDasCartas()
+        {
+            return new Dictionary<string, int>
+            {
+                { "2", 2 }, { "3", 3 }, { "4", 4 }, { "5", 5 }, { "6", 6 }, { "7", 7 }, { "8", 8 }, { "9", 9 }, { "10", 10 },
+                { "JACK", 11 }, { "QUEEN", 12 }, { "KING", 13 }, { "ACE", 14 }
+            };
         }
 
         private bool ValidarCarta(Carta carta, Dictionary<string, int> valores)
