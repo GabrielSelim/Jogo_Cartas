@@ -2,24 +2,21 @@
 
 # Esta fase é usada durante a execução no VS no modo rápido (Padrão para a configuração de Depuração)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 80
+EXPOSE 443
 
 # Esta fase é usada para compilar o projeto de serviço
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS with-node
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 RUN apt-get update
-RUN apt-get install curl
+RUN apt-get install -y curl
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash
 RUN apt-get -y install nodejs
 RUN npm install -g @angular/cli
 
-FROM with-node AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Jogo_Cartas.Server/Jogo_Cartas.Server.csproj", "Jogo_Cartas.Server/"]
-COPY ["jogo_cartas.client/jogo_cartas.client.esproj", "jogo_cartas.client/"]
 RUN dotnet restore "./Jogo_Cartas.Server/Jogo_Cartas.Server.csproj"
 COPY . .
 WORKDIR "/src/Jogo_Cartas.Server"
@@ -35,3 +32,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Jogo_Cartas.Server.dll"]
+

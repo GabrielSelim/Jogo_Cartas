@@ -23,8 +23,8 @@ builder.Services.AddCors(options =>
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8080);
-    options.ListenAnyIP(8081);
+    options.ListenAnyIP(80);
+    options.ListenAnyIP(443);
 });
 
 builder.Services.AddHttpClient<IClienteAPIService, ClienteApiService>();
@@ -36,11 +36,8 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

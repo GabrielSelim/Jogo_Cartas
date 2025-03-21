@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Jogo_Cartas.Server/Dockerfile
+    ports:
+      - "8080:80"
+      - "8081:443"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+  frontend:
+    build:
+      context: ./jogo_cartas.client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      NODE_ENV: development

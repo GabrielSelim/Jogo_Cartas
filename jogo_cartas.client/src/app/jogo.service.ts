@@ -6,9 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class JogoService {
-  private apiUrl = 'https://localhost:44355'; // Usar o proxy
+  private apiUrl = this.getApiUrl();
 
   constructor(private http: HttpClient) { }
+
+  private getApiUrl(): string {
+    return window.location.hostname === 'localhost' ? 'https://localhost:44355' : 'https://api-seu-dominio.com';
+  }
 
   criarBaralho(): Observable<any> {
     return this.http.get(`${this.apiUrl}/jogo/criar-baralho`, {});
