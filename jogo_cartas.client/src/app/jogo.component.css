@@ -133,7 +133,29 @@ button {
   gap: 10px;
   padding: 10px;
   border: 2px solid #007bff;
-  border-radius: 10px;
+  border-radius: 50px;
   background-color: #f1f1f1;
+  margin-bottom: 10px;
+}
+
+/* Estilo para os resultados */
+.resultado-empate {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffcc00; /* Amarelo */
+  margin-bottom: 10px;
+}
+
+.resultado-vitoria {
+  font-size: 24px;
+  font-weight: bold;
+  color: #28a745; /* Verde */
+  margin-bottom: 10px;
+}
+
+.resultado-derrota {
+  font-size: 24px;
+  font-weight: bold;
+  color: #dc3545; /* Vermelho */
   margin-bottom: 10px;
 }

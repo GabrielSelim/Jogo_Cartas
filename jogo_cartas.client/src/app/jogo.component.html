@@ -30,7 +30,10 @@
 </div>
 
 <div *ngIf="resultadoComparacao">
-  <h3>Resultado da Comparação: {{ resultadoComparacao }}</h3>
+  <h3>Resultado da Comparação:</h3>
+  <div *ngIf="resultadoComparacao === 'Empate'" class="resultado-empate">Empate</div>
+  <div *ngIf="resultadoComparacao !== 'Empate' && vencedores[0].nome === 'Jogador 1'" class="resultado-vitoria">Parabéns! Você venceu!</div>
+  <div *ngIf="resultadoComparacao !== 'Empate' && vencedores[0].nome !== 'Jogador 1'" class="resultado-derrota">Derrota! Vencedor: {{ vencedores[0].nome }}</div>
   <div *ngFor="let vencedor of vencedores" class="comparacao-container">
     <h4 [ngClass]="{'suas-cartas': vencedor.nome === 'Jogador 1'}">{{ vencedor.nome === 'Jogador 1' ? 'Suas Cartas' : vencedor.nome }}</h4>
     <img [src]="vencedor.carta.image" [alt]="vencedor.carta.code" class="carta">
