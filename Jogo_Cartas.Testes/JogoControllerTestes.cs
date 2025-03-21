@@ -314,6 +314,5 @@ namespace Jogo_Cartas.Testes
             var mensagem = returnValue.GetType().GetProperty("mensagem").GetValue(returnValue, null) as string;
             Assert.Equal("Carta inválida: todos os campos devem ser preenchidos.", mensagem);
         }
-
     }
 }
