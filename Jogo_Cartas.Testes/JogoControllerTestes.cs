@@ -235,5 +235,85 @@ namespace Jogo_Cartas.Testes
             var returnValue = Assert.IsType<Baralho>(okResult.Value);
             Assert.Equal(0, returnValue.CartasRestantes);
         }
+
+        [Fact(DisplayName = "DistribuirCartas deve retornar BadRequest se o baralho não estiver embaralhado")]
+        public async Task DistribuirCartas_ReturnsBadRequest_IfDeckNotShuffled()
+        {
+            var deckId = "deck1";
+            var numeroDeJogadores = 4;
+
+            _jogoServiceMock.Setup(service => service.DistribuirCartasAsync(deckId, numeroDeJogadores))
+                .ThrowsAsync(new ApiException("O baralho precisa ser embaralhado antes de distribuir as cartas."));
+
+            var result = await _controller.DistribuirCartas(deckId, numeroDeJogadores);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            var returnValue = Assert.IsType<ApiErrorResponse>(badRequestResult.Value);
+            Assert.Equal("O baralho precisa ser embaralhado antes de distribuir as cartas.", returnValue.Mensagem);
+        }
+
+        [Fact(DisplayName = "CompararCartas deve retornar BadRequest se a lista de jogadores for nula ou vazia")]
+        public async Task CompararCartas_ReturnsBadRequest_IfJogadoresListIsNullOrEmpty()
+        {
+            List<Jogador> jogadores = null;
+
+            _jogoServiceMock.Setup(service => service.CompararCartasAsync(jogadores))
+                .ThrowsAsync(new ApiException("A lista de jogadores não pode ser nula ou vazia."));
+
+            var result = await _controller.CompararCartas(jogadores);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var returnValue = badRequestResult.Value;
+            Assert.NotNull(returnValue);
+
+            // Usar deserialização dinâmica para acessar a propriedade mensagem
+            var mensagem = returnValue.GetType().GetProperty("mensagem").GetValue(returnValue, null) as string;
+            Assert.Equal("A lista de jogadores não pode ser nula ou vazia.", mensagem);
+        }
+
+        [Fact(DisplayName = "CompararCartas deve retornar BadRequest se algum jogador tiver menos de 5 cartas")]
+        public async Task CompararCartas_ReturnsBadRequest_IfAnyJogadorHasLessThanFiveCards()
+        {
+            var jogadores = new List<Jogador>
+            {
+                new Jogador { Nome = "Jogador 1", Cartas = new List<Carta> { new Carta { Valor = "ACE", Naipe = "HEARTS", Codigo = "AH", Imagem = "https://deckofcardsapi.com/static/img/AH.png" } } }
+            };
+
+            _jogoServiceMock.Setup(service => service.CompararCartasAsync(jogadores))
+                .ThrowsAsync(new ApiException("O jogador Jogador 1 tem menos de 5 cartas."));
+
+            var result = await _controller.CompararCartas(jogadores);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var returnValue = badRequestResult.Value;
+            Assert.NotNull(returnValue);
+
+            // Usar deserialização dinâmica para acessar a propriedade mensagem
+            var mensagem = returnValue.GetType().GetProperty("mensagem").GetValue(returnValue, null) as string;
+            Assert.Equal("O jogador Jogador 1 tem menos de 5 cartas.", mensagem);
+        }
+
+        [Fact(DisplayName = "CompararCartas deve retornar BadRequest se algum campo da carta for inválido")]
+        public async Task CompararCartas_ReturnsBadRequest_IfAnyCardFieldIsInvalid()
+        {
+            var jogadores = new List<Jogador>
+            {
+                new Jogador { Nome = "Jogador 1", Cartas = new List<Carta> { new Carta { Valor = "", Naipe = "HEARTS", Codigo = "AH", Imagem = "https://deckofcardsapi.com/static/img/AH.png" } } }
+            };
+
+            _jogoServiceMock.Setup(service => service.CompararCartasAsync(jogadores))
+                .ThrowsAsync(new ApiException("Carta inválida: todos os campos devem ser preenchidos."));
+
+            var result = await _controller.CompararCartas(jogadores);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var returnValue = badRequestResult.Value;
+            Assert.NotNull(returnValue);
+
+            // Usar deserialização dinâmica para acessar a propriedade mensagem
+            var mensagem = returnValue.GetType().GetProperty("mensagem").GetValue(returnValue, null) as string;
+            Assert.Equal("Carta inválida: todos os campos devem ser preenchidos.", mensagem);
+        }
+
     }
 }
