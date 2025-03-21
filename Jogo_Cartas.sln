@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "jogo_cartas.client", "jogo_cartas.client\jogo_cartas.client.esproj", "{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jogo_Cartas.Server", "Jogo_Cartas.Server\Jogo_Cartas.Server.csproj", "{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE9FD100-0CB5-1B23-0FF6-08D0229801E9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8BA4F99-4F5C-4FCC-8869-0FB4605EDEEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {281C7810-0D98-4E4F-87EF-A80661400E55}
+	EndGlobalSection
+EndGlobal
